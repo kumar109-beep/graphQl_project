@@ -4,7 +4,9 @@ from graphene_django import DjangoListField
 from .models import *
 
 
-
+# ============================================================================
+'''DjangoObjectType >>> conver data into format supported to GraphQL'''
+# ============================================================================
 class BookType(DjangoObjectType):
     class Meta:
         model = Books
@@ -25,13 +27,13 @@ class QuizzesType(DjangoObjectType):
 class QuestionType(DjangoObjectType):
     class Meta:
         model = Question
-        fields = ('id','technique','title','difficulty','is_active','timeStamp')
+        fields = ('id','quiz','technique','title','difficulty','is_active','timeStamp')
 
 
 class AnswerType(DjangoObjectType):
     class Meta:
         model = Answer
-        fields = ('id','question','answerText','timeStamp')
+        fields = ('id','question','answerText','is_right','timeStamp')
 
 
 # ============================================================================
@@ -49,6 +51,17 @@ class Query(graphene.ObjectType):
 
     def resolve_all_category(root,info):
         return Category.objects.all()
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+class Query(graphene.ObjectType):
+    all_answer = graphene.List(AnswerType)
+
+    def resolve_all_answer(root,info):
+        return Answer.objects.filter(is_right=False)
+        # return Answer.objects.all()
 # ============================================================================
 '''SCHEMA TO ACCESS MODEL DATA'''
 # ============================================================================

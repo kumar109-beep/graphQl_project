@@ -31,15 +31,15 @@ class Quizzes(models.Model):
 
 class Question(models.Model):
     SCALE = (
-        (0,'Fundamental'),
-        (1,'Beginner'),
-        (2,'Intermediate'),
-        (3,'Advanced'),
-        (4,'Expert'),
+        (0,('Fundamental')),
+        (1,('Beginner')),
+        (2,('Intermediate')),
+        (3,('Advanced')),
+        (4,('Expert')),
     )
 
     TYPE = (
-        (0,'Multiple Choice'),
+        (0,('Multiple Choice')),
     )
 
     quiz = models.ForeignKey(Quizzes,on_delete=models.CASCADE)
